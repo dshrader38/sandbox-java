@@ -1,0 +1,9 @@
+com/shrader/namescore/scoring/NameScoreStrategyFactory.class
+com/shrader/namescore/parse/NameFileLoader.class
+com/shrader/namescore/scoring/NameScoreStrategyFactory$NameScoreStrategyName.class
+com/shrader/namescore/scoring/strategy/NameScoreStrategy.class
+com/shrader/namescore/parse/ABCNameSupplierFromFile.class
+com/shrader/namescore/NamescoreApplication.class
+com/shrader/namescore/scoring/strategy/BetterNameScoreStrategy.class
+com/shrader/namescore/scoring/strategy/BasicNameScoreStrategy.class
+com/shrader/namescore/scoring/NameScoreStrategyFactory$1.class

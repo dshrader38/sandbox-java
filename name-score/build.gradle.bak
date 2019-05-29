@@ -1,0 +1,40 @@
+group = 'com.theocc'
+
+subprojects
+{
+    ext {
+        assertjVersion = "3.11.1"
+        groovy = "2.5.1"
+        groovyVersion = "2.5.1"
+        jibVersion = "1.0.0"
+        kafkaVersion = "2.1.0"
+        lombokVersion = "1.18.4"
+        protobufVersion = "3.5.1"
+        springVersion = "5.1.4.RELEASE"
+        springBootVersion = "2.1.1.RELEASE"
+        springCloudVersion = "Greenwich.M3"
+        springKafkaVersion = "2.2.2.RELEASE"
+        spockVersion = "1.2-groovy-2.5"
+    }
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    apply plugin: "eclipse"
+    apply plugin: "groovy"
+    apply plugin: "idea"
+    apply plugin: "java"
+    
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    group = "com.theocc"
+    version = "0.9.7"
+
+//    gradle.projectsEvaluated {
+//        tasks.withType(JavaCompile) {
+//            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//        }
+//    }
+}
