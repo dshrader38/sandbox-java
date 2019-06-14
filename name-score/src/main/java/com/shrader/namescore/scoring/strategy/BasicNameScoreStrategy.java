@@ -6,13 +6,14 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Streams;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class BasicNameScoreStrategy implements NameScoreStrategy {
 	static int characterCodeOffset = 64; // uppercase character codes start at 65, so remove 64
-	static int quoteCharacterCode = Character.getNumericValue('"');
-	static char doubleQuote = '"';
-	static char singleQuote = '\'';
+	private static final char SINGLE_QUOTE = '\'';
+	private static final char DOUBLE_QUOTE = '"';
 
 	
 	@Override
@@ -29,27 +30,26 @@ public class BasicNameScoreStrategy implements NameScoreStrategy {
 		Stream<String> nameStream = names.stream().map(String::toUpperCase);
 		
 		/**
-		 * Alternatively we could start stream 
-		 * by IntStream.range
+		 * Alternatively we could start stream by IntStream.range
 		 * and construct a map containing name,index tuples
 		 * this would allow our logic to be a little more flexible
 		 * and flat
 		 */
-		Long listScore = Streams.mapWithIndex(
+		Long result = Streams.mapWithIndex(
 			nameStream,
 			(name, index) -> {
 				IntStream nameChars = name.chars();
-				int nameValue = nameChars.filter(characterCode -> {
-					return !Character.isWhitespace(characterCode) && doubleQuote != characterCode && singleQuote != characterCode;
-				}).reduce(0,
-				(nameScore, characterCode) -> {
-					int characterValue = characterCode - characterCodeOffset;
-					return nameScore + characterValue;
-				});
+
+				int nameValue = nameChars.filter(characterCode -> !Character.isWhitespace(characterCode) && characterCode != DOUBLE_QUOTE  && characterCode != SINGLE_QUOTE)
+						.reduce(0, (nameScore, characterCode) -> {
+							int characterValue = characterCode - characterCodeOffset;
+							return nameScore + characterValue;
+						});
+
 				return nameValue * (index+1);
 			}
 		).reduce(0l, (sum, nameScore) -> sum + nameScore);
 
-		return listScore.intValue();
+		return result.intValue();
 	}
 }

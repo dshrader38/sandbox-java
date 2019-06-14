@@ -24,9 +24,9 @@ public class NameFileLoaderTest {
 	private static CharBuffer expectedCharBuffer;
 
 	@BeforeClass
-	public static void setup() {
+	public static void setUp() {
 		fileLoader = new NameFileLoader();
-		resourceFileName = "ShortNameList.csv";
+		resourceFileName = "SmallFile.csv";
 		String expectedFileData = "\"MARY\",\"PATRICIA\",\"LINDA\",\"BARBARA\",\"VINCENZO\",\"SHON\",\"LYNWOOD\",\"JERE\",\"HAI\"";
 		expectedCharBuffer = CharBuffer.wrap(expectedFileData);
 	}
@@ -50,7 +50,5 @@ public class NameFileLoaderTest {
 			e.printStackTrace();
 			fail("Unexpected IOException");
 		}
-		
 	}
-
 }

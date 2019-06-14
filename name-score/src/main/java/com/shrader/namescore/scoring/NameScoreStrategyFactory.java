@@ -3,6 +3,7 @@ package com.shrader.namescore.scoring;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.shrader.namescore.scoring.strategy.AbecedarianNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.BasicNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.BetterNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
@@ -12,6 +13,7 @@ public class NameScoreStrategyFactory {
 	
 	private enum NameScoreStrategyName
 	{
+		ABECEDARIAN_SCORE("ABECEDARIAN_SCORE"),
 	    BASIC_SCORE("BASIC_SCORE"),
 		BETTER_SCORE("BETTER_SCORE");
 
@@ -32,11 +34,13 @@ public class NameScoreStrategyFactory {
 	        }
 	    }
 	  
-	    public static NameScoreStrategyName get(String strategyName) {
-	    	NameScoreStrategyName nameScoreStrategyName = nameStringToEnum.get(strategyName);
-	        return (nameScoreStrategyName != null)
-	        		? nameScoreStrategyName
-	        		: BASIC_SCORE;
+	    public static NameScoreStrategyName get(String name) {
+	    	NameScoreStrategyName result = nameStringToEnum.get(name);
+	    	if (result == null) {
+				throw new IllegalArgumentException("Please enter a valid strategy!");
+			}
+
+			return result;
 	    }
 	}
 
@@ -46,32 +50,27 @@ public class NameScoreStrategyFactory {
 	 * 
 	 * If an incorrect identifier is given, the factory returns the default BASIC_SCORE strategy
 	 * 
-	 * @param strategyName
+	 * @param name
 	 * @return
 	 */
-	public NameScoreStrategy createStrategy(String strategyName) {
-		NameScoreStrategyName nameScoreStrategyName = NameScoreStrategyName.get(strategyName);
+	public NameScoreStrategy createStrategy(String name) {
+		NameScoreStrategy result;
 
-		NameScoreStrategy strategyInstance = null;
+		NameScoreStrategyName nameScoreStrategyName = NameScoreStrategyName.get(name);
 		switch(nameScoreStrategyName) {
+			case ABECEDARIAN_SCORE:
+				result = new AbecedarianNameScoreStrategy();
+				break;
 			case BASIC_SCORE:
-				strategyInstance = new BasicNameScoreStrategy();
+				result = new BasicNameScoreStrategy();
 				break;
 			case BETTER_SCORE:
-				strategyInstance = new BetterNameScoreStrategy(null);
+				result = new BetterNameScoreStrategy();
 				break;
 			default:
-				// TODO this should never exec since enum defaults
-				// but better safe than sorry
-				// reviewers might want me to stop defaulting
-				// enum as that might be weird to others
-				// and rather just default here
-				// I thought it acceptable as the enum was mapping
-				// with user input which is not compile time checked
-				strategyInstance = new BasicNameScoreStrategy();
-				break;
+				throw new IllegalArgumentException("Unexpected value: " + nameScoreStrategyName);
 		}
 
-		return strategyInstance;
+		return result;
 	}
 }

@@ -1,39 +1,66 @@
 plugins {
-    id 'java'
-    id 'maven-publish'
+    id "groovy"
+    id "idea"
+    id "java"
+    id "com.google.cloud.tools.jib" version "1.2.0"
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
+    id "me.champeau.gradle.jmh" version "0.4.8"
+    id "org.springframework.boot" version "2.1.5.RELEASE"
 }
 
-repositories {
-    mavenLocal()
-    maven {
-        url = "https://repo.spring.io/milestone"
-    }
+allprojects {
+    group = "com.shrader"
+    version = "0.0.1"
+    sourceCompatibility = "1.12"
+    targetCompatibility = "1.12"
 
-    maven {
-        url = "http://repo.maven.apache.org/maven2"
-    }
-}
-
-
-group = "com.shrader"
-version = "0.0.1-SNAPSHOT"
-description = "namescore"
-sourceCompatibility = "1.12"
-
-dependencies {
-    compile "com.google.guava:guava:[27.0-jre,28.0-jre)"
-    compile "org.springframework.shell:spring-shell-starter:2.0.0.RELEASE"
-    testCompile "org.springframework.boot:spring-boot-starter-test:2.1.4.RELEASE"
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
+    repositories {
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url = "https://repo.spring.io/milestone"
         }
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+dependencies {
+    implementation "com.google.guava:guava:28.0-jre"
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.shell:spring-shell-starter:2.0.1.RELEASE"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
+
+bootJar {
+    archiveBaseName = "name-score"
+    version =  "0.1.1"
+}
+
+bootRun {
+    standardInput = System.in
+}
+
+jmh {
+    humanOutputFile = null
+    warmupIterations = 1
+    iterations = 1
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        options.encoding = 'UTF-8'
+    }
+}
+
+/*
+jar {
+    manifest {
+        attributes "Main-Class": "com.baeldung.fatjar.Application"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+*/

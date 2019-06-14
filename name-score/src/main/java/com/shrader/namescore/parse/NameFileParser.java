@@ -1,5 +1,7 @@
 package com.shrader.namescore.parse;
 
+import org.springframework.stereotype.Component;
+
 import java.nio.CharBuffer;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
  *
  * I have already spent more time on this assignment than I believe I should have been allowed, so I will leave my mistake for discussion.
  */
+@Component
 public class NameFileParser implements NameParser<String> {
 	
 	/**

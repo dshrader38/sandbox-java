@@ -14,6 +14,7 @@ import com.shrader.namescore.parse.NameFileLoader;
 import com.shrader.namescore.parse.NameFileParser;
 import com.shrader.namescore.scoring.NameScoreStrategyFactory;
 
+
 public class NameScoreCommandTest {
 	
 	private static NameFileLoader fileLoader;
@@ -24,7 +25,7 @@ public class NameScoreCommandTest {
 	private static long expectedFileScore;
 
 	@BeforeClass
-	public static void setup() {
+	public static void setUp() {
 		/**
 		 * Should mock these for unit
 		 * but using real kills 2 birds w one stone as I will have real e2e flow
@@ -33,7 +34,7 @@ public class NameScoreCommandTest {
 		fileLoader = new NameFileLoader();
 		fileParser = new NameFileParser();
 		nameScoreStrategyFactory = new NameScoreStrategyFactory();
-		resourceFileName = "ShortNameList.csv";
+		resourceFileName = "SmallFile.csv";
 		nameScoreCommand = new NameScoreCommand(fileLoader, fileParser, nameScoreStrategyFactory);
 		expectedFileScore = 3194l;
 	}

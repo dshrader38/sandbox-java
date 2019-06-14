@@ -26,7 +26,7 @@ public class NameFileParserTest {
 	};
 
 	@BeforeClass
-	public static void setup() {
+	public static void setUp() {
 		nameFileParser = new NameFileParser();
 		expectedChars = String.join(",", expectedArray).toCharArray();
 		delimiter = ",";
@@ -39,12 +39,12 @@ public class NameFileParserTest {
 		assertEquals(expectedArray.length, parsedList.size());
 		assertArrayEquals(expectedArray, parsedList.toArray(new String[parsedList.size()]));
 	}
-	
+
+	//@Test
 	public void testEmptyData() {
 		char[] emptyData = {};
 		CharBuffer testDataBuffer = CharBuffer.wrap(emptyData);
 		List<String> parsedList = nameFileParser.parse(testDataBuffer, delimiter);
 		assertEquals(emptyData.length, parsedList.size());
 	}
-
 }
