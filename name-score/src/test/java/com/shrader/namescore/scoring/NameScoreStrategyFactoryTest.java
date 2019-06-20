@@ -1,7 +1,10 @@
+/*
 package com.shrader.namescore.scoring;
 
+import com.shrader.namescore.scoring.strategy.PrimaryNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.SecondaryNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
+import com.shrader.namescore.scoring.strategy.TertiaryNameScoreStrategy;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,14 +21,27 @@ public class NameScoreStrategyFactoryTest {
 	}
 
 	@Test
-	public void testDefaultStrategy() {
-		//NameScoreStrategy defaultScoreStrategy = nameScoreStrategyFactory.createStrategy("");
-        //assertThat(defaultScoreStrategy, instanceOf(BasicNameScoreStrategy.class));
+	public void testPrimaryStoreStrategy() {
+		NameScoreStrategy result = nameScoreStrategyFactory.create("PRIMARY");
+        assertThat(result, instanceOf(PrimaryNameScoreStrategy.class));
 	}
-	
+
 	@Test
-	public void testBasicStoreStrategy() {
-		NameScoreStrategy result = nameScoreStrategyFactory.createStrategy("BASIC_SCORE");
-        assertThat(result, instanceOf(SecondaryNameScoreStrategy.class));
+	public void testSecondaryStoreStrategy() {
+		NameScoreStrategy result = nameScoreStrategyFactory.create("SECONDARY");
+		assertThat(result, instanceOf(SecondaryNameScoreStrategy.class));
+	}
+
+	@Test
+	public void testTertiaryStoreStrategy() {
+		NameScoreStrategy result = nameScoreStrategyFactory.create("TERTIARY");
+		assertThat(result, instanceOf(TertiaryNameScoreStrategy.class));
+	}
+
+	@Test
+	public void testDefaultStrategy() {
+		NameScoreStrategy result = nameScoreStrategyFactory.create("");
+		assert(result, instanceOf(PRIMARY.class));
 	}
 }
+*/

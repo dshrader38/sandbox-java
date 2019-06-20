@@ -49,7 +49,7 @@ public final class RESTController {
         }
         log.info("strategy:" + strategy);
 
-        NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.createStrategy(strategy);
+        NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.create(strategy);
         //result = nameScoreStrategy.score(names);
 
         return "Hello World\n";

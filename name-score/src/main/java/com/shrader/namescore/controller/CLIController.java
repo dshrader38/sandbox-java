@@ -44,7 +44,7 @@ public class CLIController {
             }
             CharBuffer fileData = this.fileLoader.load(file);
             List<String> names = this.fileParser.parse(fileData, delimiter);
-            NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.createStrategy(scoreStrategy);
+            NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.create(scoreStrategy);
             result = nameScoreStrategy.score(names);
         } catch (Exception ex) {
             ex.printStackTrace();
