@@ -6,22 +6,29 @@ java -jar name-score-0.1.1.jar
 ```
 ## Build & Run (Docker)
 ```
-docker build -t shrader:latest .
-docker run -it -v $(pwd):/usr/src/project shrader
+docker build -t shrader:latest
+docker run --rm -it -v $(pwd):/usr/src/project shrader
+docker run --rm -it --mount type=bind,src="$(pwd)",dst=/usr/src/project shrader
+--name
 ```
+
+docker exec -it <name> bash
+
+curl -v http://localhost:8080/name-score?strategy=primary
+
 ## Commands
 ### Valid 
-#### ABECEDARIAN_SCORE -> 494
+#### PRIMARY -> 494
 ```
-scorefile --score-strategy ABECEDARIAN_SCORE --csv-file src/main/resources/SmallFile.csv
+scorefile --score-strategy PRIMARY --csv-file src/main/resources/SmallFile.csv
 ```
-#### BASIC_SCORE -> 3194
+#### SECONDARY -> 3194
 ```
-scorefile --score-strategy BASIC_SCORE --csv-file src/main/resources/SmallFile.csv
+scorefile --score-strategy SECONDARY --csv-file src/main/resources/SmallFile.csv
 ```
-#### BETTER_SCORE -> 494
+#### TERTIARY -> 494
 ```
-scorefile --score-strategy BETTER_SCORE --csv-file src/main/resources/SmallFile.csv
+scorefile --score-strategy TERTIARY --csv-file src/main/resources/SmallFile.csv
 ```
 ### Error
 #### Bad score strategy

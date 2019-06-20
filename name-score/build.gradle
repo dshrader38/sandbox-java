@@ -1,34 +1,64 @@
+buildscript {
+    ext {
+        assertjVersion = "3.11.1"
+        groovy = "2.5.1"
+        groovyVersion = "2.5.1"
+        jibVersion = "1.0.0"
+        kafkaVersion = "2.1.0"
+        lombokVersion = "1.18.4"
+        protobufVersion = "3.5.1"
+        springVersion = "5.1.4.RELEASE"
+        springBootVersion = "2.1.1.RELEASE"
+        springCloudVersion = "Greenwich.M3"
+        springKafkaVersion = "2.2.2.RELEASE"
+        springShellVersion = "2.0.0.RELEASE"
+        spockVersion = "1.2-groovy-2.5"
+    }
+}
+
 plugins {
     id "groovy"
     id "idea"
     id "java"
     id "com.google.cloud.tools.jib" version "1.2.0"
+    id "io.freefair.lombok" version "3.7.5"
     id "io.spring.dependency-management" version "1.0.7.RELEASE"
     id "me.champeau.gradle.jmh" version "0.4.8"
     id "org.springframework.boot" version "2.1.5.RELEASE"
 }
 
-allprojects {
-    group = "com.shrader"
-    version = "0.0.1"
-    sourceCompatibility = "1.12"
-    targetCompatibility = "1.12"
-
-    repositories {
-        jcenter()
-        mavenCentral()
-        mavenLocal()
-        maven {
-            url = "https://repo.spring.io/milestone"
-        }
+repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url = "https://repo.spring.io/milestone"
     }
 }
 
+group = "com.shrader"
+version = "0.0.1"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
 dependencies {
+    // lombok
+    //compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    // protocol buffers
+    implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
+
     implementation "com.google.guava:guava:28.0-jre"
-    implementation "org.springframework.boot:spring-boot-starter"
-    implementation "org.springframework.shell:spring-shell-starter:2.0.1.RELEASE"
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.shell:spring-shell-starter:${springShellVersion}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation "org.springframework.boot:spring-boot-test:${springBootVersion}"
+    
+    // test frameworks
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    testImplementation "org.spockframework:spock-core:${spockVersion}"
 }
 
 bootJar {
@@ -38,6 +68,7 @@ bootJar {
 
 bootRun {
     standardInput = System.in
+    jvmArgs = ["-Xverify:none"] // startup optimization
 }
 
 jmh {

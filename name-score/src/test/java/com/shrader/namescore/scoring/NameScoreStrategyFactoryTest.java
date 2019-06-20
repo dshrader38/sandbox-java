@@ -1,6 +1,6 @@
 package com.shrader.namescore.scoring;
 
-import com.shrader.namescore.scoring.strategy.BasicNameScoreStrategy;
+import com.shrader.namescore.scoring.strategy.SecondaryNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,6 +26,6 @@ public class NameScoreStrategyFactoryTest {
 	@Test
 	public void testBasicStoreStrategy() {
 		NameScoreStrategy result = nameScoreStrategyFactory.createStrategy("BASIC_SCORE");
-        assertThat(result, instanceOf(BasicNameScoreStrategy.class));
+        assertThat(result, instanceOf(SecondaryNameScoreStrategy.class));
 	}
 }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 
 public class NameScoreStrategyTest {
-	private static BasicNameScoreStrategy basicNameScoreStrategy;
-    private static BetterNameScoreStrategy betterNameScoreStrategy;
+	private static SecondaryNameScoreStrategy basicNameScoreStrategy;
+    private static TertiaryNameScoreStrategy betterNameScoreStrategy;
 
     private static ArrayList<String> singleNameList = new ArrayList<>();
     static {
@@ -35,8 +35,8 @@ public class NameScoreStrategyTest {
 
     @BeforeClass
 	public static void setUp() {
-		basicNameScoreStrategy = new BasicNameScoreStrategy();
-        betterNameScoreStrategy = new BetterNameScoreStrategy();
+		basicNameScoreStrategy = new SecondaryNameScoreStrategy();
+        betterNameScoreStrategy = new TertiaryNameScoreStrategy();
 	}
 
 	@Test

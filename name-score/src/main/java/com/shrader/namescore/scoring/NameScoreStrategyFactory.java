@@ -3,9 +3,9 @@ package com.shrader.namescore.scoring;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.shrader.namescore.scoring.strategy.AbecedarianNameScoreStrategy;
-import com.shrader.namescore.scoring.strategy.BasicNameScoreStrategy;
-import com.shrader.namescore.scoring.strategy.BetterNameScoreStrategy;
+import com.shrader.namescore.scoring.strategy.PrimaryNameScoreStrategy;
+import com.shrader.namescore.scoring.strategy.SecondaryNameScoreStrategy;
+import com.shrader.namescore.scoring.strategy.TertiaryNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
 
 
@@ -13,9 +13,9 @@ public class NameScoreStrategyFactory {
 	
 	private enum NameScoreStrategyName
 	{
-		ABECEDARIAN_SCORE("ABECEDARIAN_SCORE"),
-	    BASIC_SCORE("BASIC_SCORE"),
-		BETTER_SCORE("BETTER_SCORE");
+		PRIMARY("PRIMARY"),
+	    SECONDARY("SECONDARY"),
+		TERTIARY("TERTIARY");
 
 	    private String strategyName;
 	    private static final Map<String, NameScoreStrategyName> nameStringToEnum = new HashMap<>();
@@ -35,7 +35,7 @@ public class NameScoreStrategyFactory {
 	    }
 	  
 	    public static NameScoreStrategyName get(String name) {
-	    	NameScoreStrategyName result = nameStringToEnum.get(name);
+	    	NameScoreStrategyName result = nameStringToEnum.get(name.toUpperCase());
 	    	if (result == null) {
 				throw new IllegalArgumentException("Please enter a valid strategy!");
 			}
@@ -58,14 +58,14 @@ public class NameScoreStrategyFactory {
 
 		NameScoreStrategyName nameScoreStrategyName = NameScoreStrategyName.get(name);
 		switch(nameScoreStrategyName) {
-			case ABECEDARIAN_SCORE:
-				result = new AbecedarianNameScoreStrategy();
+			case PRIMARY:
+				result = new PrimaryNameScoreStrategy();
 				break;
-			case BASIC_SCORE:
-				result = new BasicNameScoreStrategy();
+			case SECONDARY:
+				result = new SecondaryNameScoreStrategy();
 				break;
-			case BETTER_SCORE:
-				result = new BetterNameScoreStrategy();
+			case TERTIARY:
+				result = new TertiaryNameScoreStrategy();
 				break;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + nameScoreStrategyName);
