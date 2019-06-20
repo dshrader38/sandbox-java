@@ -7,8 +7,10 @@ import com.shrader.namescore.scoring.strategy.PrimaryNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.SecondaryNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.TertiaryNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class NameScoreStrategyFactory {
 	
 	private enum NameScoreStrategyName

@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: "dev"
+  main:
+    banner-mode: "console"
+
+logging:
+  level:
+    .: ERROR
+    org.springframework: ERROR
+    com.shrader: ERROR
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d %p %c{1.} [%t] %m%n"
+  file: "app.log"
+
+server:
+  port: "8080"
+
+app:
+  mode: "rest"
