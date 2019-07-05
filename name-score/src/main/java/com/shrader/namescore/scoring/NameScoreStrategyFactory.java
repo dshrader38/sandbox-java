@@ -1,9 +1,9 @@
 package com.shrader.namescore.scoring;
 
+import com.shrader.namescore.scoring.strategy.FirstNameScoreStrategy;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
-import com.shrader.namescore.scoring.strategy.PrimaryNameScoreStrategy;
-import com.shrader.namescore.scoring.strategy.SecondaryNameScoreStrategy;
-import com.shrader.namescore.scoring.strategy.TertiaryNameScoreStrategy;
+import com.shrader.namescore.scoring.strategy.SecondNameScoreStrategy;
+import com.shrader.namescore.scoring.strategy.ThirdNameScoreStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -17,36 +17,36 @@ public class NameScoreStrategyFactory {
      * Takes a string identifying which scoring algorithm to use
      * and returns a Strategy containing the logic for this algorithm.
      * <p>
-     * If an incorrect identifier is given, the factory returns the default BASIC_SCORE strategy
+     * @throws IllegalArgumentException
      *
      * @param name
      * @return
      */
-    public NameScoreStrategy create(String name) {
+    public NameScoreStrategy create(String strategy) {
         NameScoreStrategy result;
 
-        NameScoreStrategyEnum nameScoreStrategyEnum = NameScoreStrategyEnum.get(name);
+        NameScoreStrategyEnum nameScoreStrategyEnum = NameScoreStrategyEnum.get(strategy);
         switch (nameScoreStrategyEnum) {
-            case PRIMARY:
-                result = new PrimaryNameScoreStrategy();
+            case FIRST:
+                result = new FirstNameScoreStrategy();
                 break;
-            case SECONDARY:
-                result = new SecondaryNameScoreStrategy();
+            case SECOND:
+                result = new SecondNameScoreStrategy();
                 break;
-            case TERTIARY:
-                result = new TertiaryNameScoreStrategy();
+            case THIRD:
+                result = new ThirdNameScoreStrategy();
                 break;
             default:
-                throw new IllegalArgumentException("Unexpected value: " + nameScoreStrategyEnum);
+                throw new IllegalArgumentException("Unexpected value: " + strategy);
         }
 
         return result;
     }
 
     private enum NameScoreStrategyEnum {
-        PRIMARY("PRIMARY"),
-        SECONDARY("SECONDARY"),
-        TERTIARY("TERTIARY");
+        FIRST("FIRST"),
+        SECOND("SECOND"),
+        THIRD("THIRD");
 
         private static final Map<String, NameScoreStrategyEnum> nameStringToEnum = new HashMap<>();
 
@@ -62,6 +62,10 @@ public class NameScoreStrategyFactory {
             this.strategyName = strategyName;
         }
 
+        public String getStrategyName() {
+            return this.strategyName;
+        }
+
         public static NameScoreStrategyEnum get(String name) {
             NameScoreStrategyEnum result = nameStringToEnum.get(name.toUpperCase());
             if (result == null) {
@@ -69,10 +73,6 @@ public class NameScoreStrategyFactory {
             }
 
             return result;
-        }
-
-        public String getStrategyName() {
-            return this.strategyName;
         }
     }
 }

@@ -33,7 +33,7 @@ public class CLIController {
 
     @ShellMethod("Score a flat file containing a single line csv of names")
     public int scorefile(@ShellOption() String csvFile,
-                         @ShellOption(defaultValue = "BASIC_SCORE") String scoreStrategy,
+                         @ShellOption(defaultValue = "FIRST") String strategy,
                          @ShellOption(defaultValue = ",") String delimiter) {
         int result = -1;
 
@@ -44,7 +44,7 @@ public class CLIController {
             }
             CharBuffer fileData = this.fileLoader.load(file);
             List<String> names = this.fileParser.parse(fileData, delimiter);
-            NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.create(scoreStrategy);
+            NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.create(strategy);
             result = nameScoreStrategy.score(names);
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -1,45 +1,41 @@
-package namescore.scoring;
+package namescore.scoring
 
 import com.shrader.namescore.scoring.NameScoreStrategyFactory
-import com.shrader.namescore.scoring.strategy.PrimaryNameScoreStrategy
-import com.shrader.namescore.scoring.strategy.SecondaryNameScoreStrategy
-import com.shrader.namescore.scoring.strategy.TertiaryNameScoreStrategy
+import com.shrader.namescore.scoring.strategy.FirstNameScoreStrategy
+import com.shrader.namescore.scoring.strategy.NameScoreStrategy
+import com.shrader.namescore.scoring.strategy.SecondNameScoreStrategy
+import com.shrader.namescore.scoring.strategy.ThirdNameScoreStrategy
 import spock.lang.Shared
 import spock.lang.Specification
-
-import static org.hamcrest.CoreMatchers.instanceOf
+import spock.lang.Unroll
 
 
 class NameScoreStrategyFactoryTest extends Specification {
 
-	@Shared def nameScoreStrategyFactory = new NameScoreStrategyFactory()
+    @Shared
+    def nameScoreStrategyFactory = new NameScoreStrategyFactory()
 
 
-	def "test primary name score strategy factory"() {
-		given:
-			println "\n*** run with data for missing instrument ***\n"
-			def result = nameScoreStrategyFactory.create("PRIMARY")
-		expect:
-			result == instanceOf(PrimaryNameScoreStrategy.class)
-	}
+    @Unroll
+    def "test third name-score strategy factory"(String strategy, Class<? extends NameScoreStrategy> expectedClass) {
+        when:
+            def nameScoreStrategy = nameScoreStrategyFactory.create(strategy)
 
-	def "test secondary name score strategy factory"() {
-		given:
-			def result = nameScoreStrategyFactory.create("SECONDARY")
-		expect:
-			result == instanceOf(SecondaryNameScoreStrategy.class)
-	}
+        then:
+            nameScoreStrategy in expectedClass
 
-	def "test tertiary name score strategy factory"() {
-		given:
-			def result = nameScoreStrategyFactory.create("TERTIARY")
-		expect:
-			result == instanceOf(TertiaryNameScoreStrategy.class)
-	}
+        where:
+            strategy | expectedClass
+            "first"  | FirstNameScoreStrategy
+            "second" | SecondNameScoreStrategy
+            "third"  | ThirdNameScoreStrategy
+    }
+
+    def "test unknown name score strategy factory"() {
+        when:
+            nameScoreStrategyFactory.create("")
+        then:
+            def ex = thrown IllegalArgumentException
+            ex.message == "Please enter a valid strategy!"
+    }
 }
-
-
-//void testDefaultStrategy() {
-//	NameScoreStrategy result = nameScoreStrategyFactory.create("");
-//	assert(result, instanceOf(PRIMARY.class));
-//}

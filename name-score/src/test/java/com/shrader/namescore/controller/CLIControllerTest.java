@@ -54,7 +54,7 @@ public class CLIControllerTest {
 
 	@Test
 	public void testBasicScore() throws URISyntaxException {
-		String basicScoreName = "BASIC_SCORE";
+		String basicScoreName = "FIRST";
 		String delimiter = ",";
 		String absoluteFilePath = testHelper_loadResourceFile(resourceFileName);
 
