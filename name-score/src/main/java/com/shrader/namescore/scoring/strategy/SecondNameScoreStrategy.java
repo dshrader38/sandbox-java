@@ -6,16 +6,25 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Streams;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 
 @Component
+@Log4j2
 public class SecondNameScoreStrategy implements NameScoreStrategy {
 
 	static int characterCodeOffset = 64; // uppercase character codes start at 65, so remove 64
 	private static final char SINGLE_QUOTE = '\'';
 	private static final char DOUBLE_QUOTE = '"';
-	
+
+	@PostConstruct
+	public void init() {
+		log.info("init");
+	}
+
 	@Override
 	/**
 	 * This method will parse a csv of names, ignoring whitescape and quotes, and scoring a name file

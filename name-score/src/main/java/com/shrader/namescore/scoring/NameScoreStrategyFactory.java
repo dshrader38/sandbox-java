@@ -19,7 +19,7 @@ public class NameScoreStrategyFactory {
      * <p>
      * @throws IllegalArgumentException
      *
-     * @param name
+     * @param strategy
      * @return
      */
     public NameScoreStrategy create(String strategy) {

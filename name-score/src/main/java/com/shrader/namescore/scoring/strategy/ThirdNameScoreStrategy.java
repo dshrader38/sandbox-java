@@ -1,16 +1,24 @@
 package com.shrader.namescore.scoring.strategy;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
 
 @Component
+@Log4j2
 public class ThirdNameScoreStrategy implements NameScoreStrategy {
 
     private static final char BASE = 'A';
+
+    @PostConstruct
+    public void init() {
+        log.info("init");
+    }
 
     @Override
     public int score(List<String> names) {

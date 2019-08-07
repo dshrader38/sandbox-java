@@ -8,7 +8,7 @@ buildscript {
         lombokVersion = "1.18.4"
         protobufVersion = "3.5.1"
         springVersion = "5.1.4.RELEASE"
-        springBootVersion = "2.1.1.RELEASE"
+        springBootVersion = "2.1.6.RELEASE"
         springCloudVersion = "Greenwich.M3"
         springKafkaVersion = "2.2.2.RELEASE"
         springShellVersion = "2.0.0.RELEASE"
@@ -24,7 +24,7 @@ plugins {
     id "io.freefair.lombok" version "3.7.5"
     id "io.spring.dependency-management" version "1.0.7.RELEASE"
     id "me.champeau.gradle.jmh" version "0.4.8"
-    id "org.springframework.boot" version "2.1.5.RELEASE"
+    id "org.springframework.boot" version "2.1.6.RELEASE"
 }
 
 repositories {
@@ -45,12 +45,18 @@ dependencies {
     // lombok
     //compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
+    // log4j2
+    //implementation "org.apache.logging.log4j:log4j-api:2.12.0"
+    //implementation "org.apache.logging.log4j:log4j-core:2.12.0"
+    //implementation "org.apache.logging.log4j:log4j-slf4j-impl:2.12.0"
+
     // protocol buffers
     implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
 
     implementation "com.google.guava:guava:28.0-jre"
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
+    //implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.shell:spring-shell-starter:${springShellVersion}"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"

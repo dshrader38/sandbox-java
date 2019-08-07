@@ -4,12 +4,13 @@ import com.shrader.namescore.parse.FileLoader;
 import com.shrader.namescore.parse.FileParser;
 import com.shrader.namescore.scoring.NameScoreStrategyFactory;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.nio.CharBuffer;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @ConditionalOnProperty(prefix = "app", name = "mode", havingValue = "cli")
 @ShellComponent
-@Slf4j
+@Log4j2
 public class CLIController {
     private FileLoader fileLoader;
     private FileParser fileParser;
@@ -29,6 +30,11 @@ public class CLIController {
         this.fileLoader = fileLoader;
         this.fileParser = fileParser;
         this.nameScoreStrategyFactory = nameScoreStrategyFactory;
+    }
+
+    @PostConstruct
+    public void init() {
+        log.info("init");
     }
 
     @ShellMethod("Score a flat file containing a single line csv of names")
@@ -47,8 +53,7 @@ public class CLIController {
             NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.create(strategy);
             result = nameScoreStrategy.score(names);
         } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Command failed with exception: " + ex.getMessage());
+            log.error(ex.getMessage());
         }
 
         return result;

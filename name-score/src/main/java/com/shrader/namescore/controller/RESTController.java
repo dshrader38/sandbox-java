@@ -2,7 +2,7 @@ package com.shrader.namescore.controller;
 
 import com.shrader.namescore.scoring.NameScoreStrategyFactory;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 @ConditionalOnProperty(prefix = "app", name = "mode", havingValue = "rest")
 @RestController
-@Slf4j
+@Log4j2
 public final class RESTController {
 
     @Autowired
