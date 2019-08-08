@@ -1,43 +1,27 @@
 package com.shrader.namescore.scoring.strategy
 
-import com.shrader.namescore.scoring.strategy.ThirdNameScoreStrategy
 import spock.lang.Shared
-import spock.lang.Specification
+import spock.lang.Unroll
 
 
-class ThirdNameScoreStrategyTest extends Specification {
+class ThirdNameScoreStrategyTest extends BaseNameScoreStrategyTest {
 
-    @Shared
-    def thirdNameScoreStrategy = new ThirdNameScoreStrategy()
+    @Unroll
+    def "Test 3rd strategy"(ArrayList<String> nameList, int expectedScore) {
+        given:
+            def strategy = new ThirdNameScoreStrategy()
 
-    @Shared
-    def emptyNameList = new ArrayList<String>()
-
-    @Shared
-    def singleNameList = ["DAVID"]
-
-    @Shared
-    def multipleNameList = ["JIMMY", "MICHAEL\"", "\"DAVID\"", "TIMMY", "SARA", "AMANDA",
-                            "", " ", "\"\"", "\"", "KYLE", "MJ", "LUCY"]
-
-    def "Test 3rd strategy using empty list as input"() {
         when:
-            def result = thirdNameScoreStrategy.score(emptyNameList)
-        then:
-            result == 0
-    }
+            def score = strategy.score(nameList)
 
-    def "Test 3rd strategy using list with single name as input"() {
-        when:
-            def result = thirdNameScoreStrategy.score(singleNameList)
         then:
-            result == 40
-    }
+            score == expectedScore
 
-    def "Test 3rd strategy using list with multiple names as input"() {
-        when:
-            def result = thirdNameScoreStrategy.score(multipleNameList)
-        then:
-            result == 3144
+        where:
+            nameList | expectedScore
+            emptyNameList  | 0
+            singleNameList | 40
+            multipleNameList  | 2927
+            multipleBadNameList  | 637
     }
 }

@@ -1,4 +1,4 @@
-package com.shrader.namescore.parse;
+package com.shrader.namescore.parser;
 
 import org.springframework.stereotype.Component;
 
@@ -21,8 +21,8 @@ public class FileLoader implements NameLoader<File> {
 
         try (final FileInputStream fineInputStream = new FileInputStream(dataFile);
              final FileChannel fileChannel = fineInputStream.getChannel()) {
-            MappedByteBuffer fileBytebuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
-            charBuffer = Charset.forName(this.getFileEncoding()).decode(fileBytebuffer).asReadOnlyBuffer();
+            MappedByteBuffer fileByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
+            charBuffer = Charset.forName(this.getFileEncoding()).decode(fileByteBuffer).asReadOnlyBuffer();
         }
         return charBuffer;
     }

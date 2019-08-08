@@ -1,4 +1,4 @@
-package com.shrader.namescore.parse;
+package com.shrader.namescore.parser;
 
 import org.springframework.stereotype.Component;
 
@@ -12,9 +12,13 @@ import java.util.stream.Collectors;
 public class FileParser implements NameParser<String> {
 
     public List<String> parse(CharBuffer charBuffer, String delimiter) {
-        List<String> namesList = Pattern.compile(delimiter)
+        return Pattern.compile(delimiter)
                 .splitAsStream(charBuffer)
+                .peek(e -> System.out.println("Original value: " + e))
+                .map(e -> e.replaceAll("\"", ""))
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .map(e -> e.trim())
+                .peek(e -> System.out.println("Mapped value: " + e))
                 .collect(Collectors.toList());
-        return namesList;
     }
 }

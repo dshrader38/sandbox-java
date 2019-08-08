@@ -1,4 +1,4 @@
-package com.shrader.namescore.parse;
+package com.shrader.namescore.parser;
 
 import static org.junit.Assert.*;
 

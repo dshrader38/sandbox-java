@@ -1,7 +1,7 @@
 package com.shrader.namescore.controller;
 
-import com.shrader.namescore.parse.FileLoader;
-import com.shrader.namescore.parse.FileParser;
+import com.shrader.namescore.parser.FileLoader;
+import com.shrader.namescore.parser.FileParser;
 import com.shrader.namescore.scoring.NameScoreStrategyFactory;
 import com.shrader.namescore.scoring.strategy.NameScoreStrategy;
 import lombok.extern.log4j.Log4j2;
@@ -12,7 +12,6 @@ import org.springframework.shell.standard.ShellOption;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
-import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.List;
 
@@ -45,9 +44,9 @@ public class CLIController {
 
         try {
             File file = new File(csvFile);
-            if (file.isAbsolute()) {
-                throw new IOException("Use a relative path");
-            }
+            //if (file.isAbsolute()) {
+            //    throw new IOException("Use a relative path");
+            //}
             CharBuffer fileData = this.fileLoader.load(file);
             List<String> names = this.fileParser.parse(fileData, delimiter);
             NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.create(strategy);

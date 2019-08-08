@@ -1,42 +1,26 @@
 package com.shrader.namescore.scoring.strategy
 
-import spock.lang.Shared
-import spock.lang.Specification
+import spock.lang.Unroll
 
 
-class FirstNameScoreStrategyTest extends Specification {
+class FirstNameScoreStrategyTest extends BaseNameScoreStrategyTest {
 
-    @Shared
-    def firstNameScoreStrategy = new FirstNameScoreStrategy()
+    @Unroll
+    def "Test 1st strategy"(ArrayList<String> nameList, int expectedScore) {
+        given:
+            def strategy = new FirstNameScoreStrategy()
 
-    @Shared
-    def emptyNameList = new ArrayList<String>()
-
-    @Shared
-    def singleNameList = ["DAVID"]
-
-    @Shared
-    def multipleNameList = ["JIMMY", "MICHAEL\"", "\"DAVID\"", "TIMMY", "SARA", "AMANDA",
-                            "", " ", "\"\"", "\"", "KYLE", "MJ", "LUCY"]
-
-    def "Test 1st strategy using empty list as input"() {
         when:
-            def result = firstNameScoreStrategy.score(emptyNameList)
-        then:
-            result == 0
-    }
+            def score = strategy.score(nameList)
 
-    def "Test 1st strategy using list with single name as input"() {
-        when:
-            def result = firstNameScoreStrategy.score(singleNameList)
         then:
-            result == 40
-    }
+            score == expectedScore
 
-    def "Test 1st strategy using list with multiple names as input"() {
-        when:
-            def result = firstNameScoreStrategy.score(multipleNameList)
-        then:
-            result == 3144
+        where:
+            nameList | expectedScore
+            emptyNameList  | 0
+            singleNameList | 40
+            multipleNameList  | 2927
+            multipleBadNameList  | 637
     }
 }
