@@ -12,14 +12,14 @@ import java.util.function.Supplier;
 import java.util.regex.MatchResult;
 
 
-public class ABCNameSupplierFromFile implements Supplier<List<String>> {
+public class FileParser2 implements Supplier<List<String>> {
 
     private final static Charset ENCODING = StandardCharsets.UTF_8;
     private static final String SEPARATOR = ",";
     private static final String QUOTED_NAME_PATTERN = "\"(.*)\"";
     private final String filePath;
 
-    public ABCNameSupplierFromFile(final String filePath) {
+    public FileParser2(final String filePath) {
         this.filePath = filePath;
     }
 

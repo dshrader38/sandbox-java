@@ -1,6 +1,5 @@
 package com.shrader.namescore.scoring.strategy
 
-import spock.lang.Shared
 import spock.lang.Unroll
 
 

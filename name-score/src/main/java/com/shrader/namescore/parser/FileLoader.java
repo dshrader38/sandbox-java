@@ -17,14 +17,15 @@ public class FileLoader implements NameLoader<File> {
 
     @Override
     public CharBuffer load(File dataFile) throws IOException {
-        CharBuffer charBuffer;
+        CharBuffer result;
 
         try (final FileInputStream fineInputStream = new FileInputStream(dataFile);
              final FileChannel fileChannel = fineInputStream.getChannel()) {
             MappedByteBuffer fileByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
-            charBuffer = Charset.forName(this.getFileEncoding()).decode(fileByteBuffer).asReadOnlyBuffer();
+            result = Charset.forName(this.getFileEncoding()).decode(fileByteBuffer).asReadOnlyBuffer();
         }
-        return charBuffer;
+
+        return result;
     }
 
     /**

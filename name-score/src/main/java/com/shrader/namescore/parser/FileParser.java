@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class FileParser implements NameParser<String> {
 
+    @Override
     public List<String> parse(CharBuffer charBuffer, String delimiter) {
         return Pattern.compile(delimiter)
                 .splitAsStream(charBuffer)
