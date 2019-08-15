@@ -1,1 +1,3 @@
-rootProject.name = "namescore"
+rootProject.name = "name-score"
+
+include "name-score-shell"

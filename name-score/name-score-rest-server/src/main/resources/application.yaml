@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: "dev"
+  main:
+    banner-mode: "console"
+    #web-application-type: "none"
+  output:
+    ansi:
+      enabled: "always"
+
+logging:
+  level:
+    root: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %-5p [%t] : %m%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%t] %logger{36}:%L : %m%n"
+  file: "logs/app.log"
+
+server:
+  port: "8080"
+
+app:
+  mode: "rest"

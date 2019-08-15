@@ -20,18 +20,18 @@ curl -v http://localhost:8080/name-score?strategy=primary
 ### Valid 
 #### PRIMARY -> 494
 ```
-scorefile --score-strategy FIRST --csv-file src/main/resources/SmallFile.csv
+score-file --strategy FIRST --csv-file src/main/resources/SmallFile.csv
 ```
 #### SECONDARY -> 3194
 ```
-scorefile --score-strategy SECOND --csv-file src/main/resources/SmallFile.csv
+score-file --strategy SECOND --csv-file src/main/resources/SmallFile.csv
 ```
 #### TERTIARY -> 494
 ```
-scorefile --score-strategy THIRD --csv-file src/main/resources/SmallFile.csv
+score-file --strategy THIRD --csv-file src/main/resources/SmallFile.csv
 ```
 ### Error
 #### Bad score strategy
 ```
-scorefile --score-strategy TENTH --csv-file src/main/resources/SmallFile.csv
+scorefile --strategy TENTH --csv-file src/main/resources/SmallFile.csv
 ```
