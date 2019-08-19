@@ -20,6 +20,7 @@ curl -v http://localhost:8080/name-score?strategy=primary
 ### Valid 
 #### PRIMARY -> 494
 ```
+score-file -C src/main/resources/SmallFile.csv
 score-file --strategy FIRST --csv-file src/main/resources/SmallFile.csv
 ```
 #### SECONDARY -> 3194

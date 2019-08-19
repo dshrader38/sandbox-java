@@ -36,6 +36,6 @@ public class Application implements ApplicationRunner {
     @Bean
     public PromptProvider myPromptProvider() {
         return () -> new AttributedString("cli:>",
-                AttributedStyle.DEFAULT.foreground(AttributedStyle.RED));
+                AttributedStyle.DEFAULT.foreground(AttributedStyle.CYAN));
     }
 }

@@ -7,16 +7,19 @@ import com.shrader.namescore.shell.scoring.strategy.NameScoreStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.CharBuffer;
 import java.util.List;
 
 
 @ShellComponent
+@ShellCommandGroup("Name Score Commands")
 public class ShellController {
     private final Logger log = LogManager.getLogger(getClass().getName());
 
@@ -31,10 +34,10 @@ public class ShellController {
         this.nameScoreStrategyFactory = nameScoreStrategyFactory;
     }
 
-    @ShellMethod("Score a flat file containing a single line csv of names")
-    public int scoreFile(@ShellOption() String csvFile,
+    @ShellMethod(value = "Score a flat file containing a single line csv of names")
+    public int scoreFile(@ShellOption({"-c", "--csv-file"}) String csvFile,
                          @ShellOption(defaultValue = "FIRST") String strategy,
-                         @ShellOption(defaultValue = ",") String delimiter) {
+                         @ShellOption(defaultValue = ",") String delimiter) throws IOException {
         int result = -1;
 
         try {
@@ -48,8 +51,16 @@ public class ShellController {
             result = nameScoreStrategy.score(names);
         } catch (Exception ex) {
             log.error(ex);
+
+            throw ex;
         }
 
         return result;
+    }
+
+
+    @ShellMethod(value = "Add two integers")
+    public int add(final int a, final int b) {
+        return a + b;
     }
 }

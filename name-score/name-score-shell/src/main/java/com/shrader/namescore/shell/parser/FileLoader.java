@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 
 
 @Component
-public class FileLoader implements NameLoader {
+public class FileLoader implements NameLoader<File> {
     private String fileEncoding;
 
     @Override
