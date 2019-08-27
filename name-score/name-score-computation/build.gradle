@@ -1,0 +1,14 @@
+plugins {
+    id "java-library"
+}
+
+dependencies {
+    implementation "com.google.guava:guava:28.0-jre"
+    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": project.name, "Implementation-Version": project.version)
+    }
+}

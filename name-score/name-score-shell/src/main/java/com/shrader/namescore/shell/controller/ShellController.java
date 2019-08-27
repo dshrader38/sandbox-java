@@ -58,7 +58,6 @@ public class ShellController {
         return result;
     }
 
-
     @ShellMethod(value = "Add two integers")
     public int add(final int a, final int b) {
         return a + b;

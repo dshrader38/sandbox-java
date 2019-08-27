@@ -31,7 +31,6 @@ public class FileLoader implements NameLoader<File> {
     /**
      * Returns this instances configured fileEncoding. Also lazy loads the default system file encoding if none was configured
      *
-     * @return
      */
     private String getFileEncoding() {
         if (this.fileEncoding == null) {
@@ -43,7 +42,6 @@ public class FileLoader implements NameLoader<File> {
     /**
      * Sets file encoding to the supplied fileEncoding
      *
-     * @param fileEncoding
      */
     private void setFileEncoding(String fileEncoding) {
         this.fileEncoding = fileEncoding;
