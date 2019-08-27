@@ -1,14 +1,14 @@
-package com.shrader.namescore.shell.scoring.strategy
+package com.shrader.namescore.scoring.strategy
 
 import spock.lang.Unroll
 
 
-class FirstNameScoreStrategySpec extends BaseNameScoreStrategySpec {
+class ThirdNameScoreStrategySpec extends BaseNameScoreStrategySpec {
 
     @Unroll
-    def "Test 1st strategy"(ArrayList<String> nameList, int expectedScore) {
+    def "Test 3rd strategy"(ArrayList<String> nameList, int expectedScore) {
         given:
-            def strategy = new FirstNameScoreStrategy()
+            def strategy = new ThirdNameScoreStrategy()
 
         when:
             def score = strategy.score(nameList)

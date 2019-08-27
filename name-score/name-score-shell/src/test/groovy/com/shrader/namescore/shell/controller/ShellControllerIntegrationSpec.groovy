@@ -1,16 +1,9 @@
 package com.shrader.namescore.shell.controller
 
-import com.shrader.namescore.shell.SpecUtils
-import com.shrader.namescore.shell.parser.FileLoader
-import com.shrader.namescore.shell.parser.NameLoader
-import org.junit.runner.RunWith
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.context.annotation.Bean
 import org.springframework.shell.Shell
-import org.springframework.shell.jline.InteractiveShellApplicationRunner
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Shared
 import spock.lang.Specification
@@ -37,7 +30,7 @@ class ShellControllerIntegrationSpec extends Specification {
      */
     def "test add"() {
         given:
-            def methodTarget = SpecUtils.lookupCommand(shell, "add")
+            def methodTarget = com.shrader.namescore.SpecUtils.lookupCommand(shell, "add")
 
         expect:
             methodTarget != null

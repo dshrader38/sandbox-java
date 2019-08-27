@@ -2,8 +2,8 @@ package com.shrader.namescore.shell.controller;
 
 import com.shrader.namescore.shell.parser.NameLoader;
 import com.shrader.namescore.shell.parser.NameParser;
-import com.shrader.namescore.shell.scoring.NameScoreStrategyFactory;
-import com.shrader.namescore.shell.scoring.strategy.NameScoreStrategy;
+import com.shrader.namescore.scoring.NameScoreStrategyFactory;
+import com.shrader.namescore.scoring.NameScoreStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -21,7 +21,7 @@ public class NameScoreStrategyFactory {
      * @return
      * @throws IllegalArgumentException
      */
-    public NameScoreStrategy create(String strategy) {
+    public NameScoreStrategy create(String strategy) throws IllegalArgumentException {
         NameScoreStrategy result;
 
         NameScoreStrategyEnum nameScoreStrategyEnum = NameScoreStrategyEnum.get(strategy);
@@ -47,11 +47,11 @@ public class NameScoreStrategyFactory {
         SECOND("SECOND"),
         THIRD("THIRD");
 
-        private static final Map<String, NameScoreStrategyEnum> nameStringToEnum = new HashMap<>();
+        private static final Map<String, NameScoreStrategyEnum> string2Enum = new HashMap<>();
 
         static {
             for (NameScoreStrategyEnum strategyName : NameScoreStrategyEnum.values()) {
-                nameStringToEnum.put(strategyName.getStrategyName(), strategyName);
+                string2Enum.put(strategyName.getStrategyName(), strategyName);
             }
         }
 
@@ -62,7 +62,7 @@ public class NameScoreStrategyFactory {
         }
 
         public static NameScoreStrategyEnum get(String name) {
-            NameScoreStrategyEnum result = nameStringToEnum.get(name.toUpperCase());
+            NameScoreStrategyEnum result = string2Enum.get(name.toUpperCase());
             if (result == null) {
                 throw new IllegalArgumentException("Please enter a valid strategy!");
             }

@@ -1,4 +1,4 @@
-package com.shrader.namescore.shell
+package com.shrader.namescore
 
 import org.springframework.shell.CommandRegistry
 import org.springframework.shell.MethodTarget

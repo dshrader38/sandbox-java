@@ -1,6 +1,6 @@
 package com.shrader.namescore.shell.controller
 
-import com.shrader.namescore.shell.SpecUtils
+import com.shrader.namescore.SpecUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.core.io.ResourceLoader

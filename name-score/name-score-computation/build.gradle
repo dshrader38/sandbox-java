@@ -4,7 +4,12 @@ plugins {
 
 dependencies {
     implementation "com.google.guava:guava:28.0-jre"
+    implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+
+    // test frameworks
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    testImplementation "org.spockframework:spock-core:${spockVersion}"
 }
 
 jar {

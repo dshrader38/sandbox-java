@@ -1,9 +1,8 @@
-package com.shrader.namescore.shell.scoring
+package com.shrader.namescore.scoring
 
-import com.shrader.namescore.shell.scoring.strategy.FirstNameScoreStrategy
-import com.shrader.namescore.shell.scoring.strategy.NameScoreStrategy
-import com.shrader.namescore.shell.scoring.strategy.SecondNameScoreStrategy
-import com.shrader.namescore.shell.scoring.strategy.ThirdNameScoreStrategy
+import com.shrader.namescore.scoring.strategy.FirstNameScoreStrategy
+import com.shrader.namescore.scoring.strategy.SecondNameScoreStrategy
+import com.shrader.namescore.scoring.strategy.ThirdNameScoreStrategy
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
