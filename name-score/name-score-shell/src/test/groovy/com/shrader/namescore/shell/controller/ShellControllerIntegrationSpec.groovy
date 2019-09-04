@@ -1,43 +1,38 @@
 package com.shrader.namescore.shell.controller
 
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.core.io.ResourceLoader
 import org.springframework.shell.Shell
+import org.springframework.shell.jline.InteractiveShellApplicationRunner
 import org.springframework.test.context.ContextConfiguration
-import spock.lang.Shared
 import spock.lang.Specification
 
-import static org.springframework.util.ReflectionUtils.findMethod
 
-/**
- * Illustrative integration tests for the Spring Shell Calculator application. These
- * integration tests use Spring Shell auto-wired by the Spring Test Runner.
- */
-@SpringBootTest
-@ContextConfiguration(classes = [ShellControllerIntegrationSpecConfig.class, ShellController.class])
+@SpringBootTest(properties = InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=" + false)
+@ContextConfiguration(classes = [ShellControllerIntegrationSpecConfig.class])
 class ShellControllerIntegrationSpec extends Specification {
-
-    @Shared
-    def COMMAND_CLASS_UNDER_TEST = ShellController.class
 
     @Autowired
     Shell shell
 
-    /**
-     * Test "happy path" or basic addition with positive numbers and zeroes. Use Spring Shell
-     * auto-wired by the Spring Test Runner.
-     */
-    def "test add"() {
-        given:
-            def methodTarget = com.shrader.namescore.SpecUtils.lookupCommand(shell, "add")
+    @Autowired
+    ResourceLoader resourceLoader
 
-        expect:
-            methodTarget != null
-            methodTarget.getGroup() == "Name Score Commands"
-            methodTarget.getHelp() == "Add two integers"
-            methodTarget.getAvailability().isAvailable()
-            methodTarget.getMethod().is(findMethod(COMMAND_CLASS_UNDER_TEST, "add", int.class, int.class))
-            //assertThat(shell.evaluate(() -> command + " 1 2"), is(3));
+
+    def "test score-file command"() {
+        given:
+            def strategy = "FIRST"
+
+        and:
+            def file = this.resourceLoader
+                    .getResource("file:src/main/resources/SmallFile.csv")
+                    .getFile()
+                    .getAbsolutePath()
+        when:
+            def command = "score-file --strategy " + strategy + " --csv-file " + file
+
+        then:
+            shell.evaluate({ -> command}) == 2927
     }
 }

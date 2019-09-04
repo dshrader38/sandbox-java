@@ -17,10 +17,10 @@ class SecondNameScoreStrategySpec extends BaseNameScoreStrategySpec {
             score == expectedScore
 
         where:
-            nameList | expectedScore
-            emptyNameList  | 0
-            singleNameList | 40
-            multipleNameList  | 2927
-            multipleBadNameList  | 637 // 4027
+            nameList            | expectedScore
+            emptyNameList       | 0
+            singleNameList      | 40
+            multipleNameList    | 2927
+            multipleBadNameList | 637
     }
 }

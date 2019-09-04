@@ -23,12 +23,12 @@ import java.util.List;
 public class ShellController {
     private final Logger log = LogManager.getLogger(getClass().getName());
 
-    private final NameLoader nameLoader;
-    private final NameParser nameParser;
+    private final NameLoader<File> nameLoader;
+    private final NameParser<String> nameParser;
     private final NameScoreStrategyFactory nameScoreStrategyFactory;
 
     @Autowired
-    public ShellController(NameLoader nameLoader, NameParser nameParser, NameScoreStrategyFactory nameScoreStrategyFactory) {
+    public ShellController(NameLoader<File> nameLoader, NameParser<String> nameParser, NameScoreStrategyFactory nameScoreStrategyFactory) {
         this.nameLoader = nameLoader;
         this.nameParser = nameParser;
         this.nameScoreStrategyFactory = nameScoreStrategyFactory;
@@ -45,8 +45,8 @@ public class ShellController {
             //if (file.isAbsolute()) {
             //    throw new IOException("Use a relative path");
             //}
-            CharBuffer fileData = this.nameLoader.load(file);
-            List<String> names = this.nameParser.parse(fileData, delimiter);
+            CharBuffer buffer = this.nameLoader.load(file);
+            List<String> names = this.nameParser.parse(buffer, delimiter);
             NameScoreStrategy nameScoreStrategy = this.nameScoreStrategyFactory.create(strategy);
             result = nameScoreStrategy.score(names);
         } catch (Exception ex) {

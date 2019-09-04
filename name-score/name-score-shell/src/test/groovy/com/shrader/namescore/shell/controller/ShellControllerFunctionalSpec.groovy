@@ -17,7 +17,6 @@ import static org.springframework.util.ReflectionUtils.findMethod
  * functional tests use Spring Shell commands auto-wired by the Spring Test Runner outside
  * of the shell, to test functionality of the commands.
  */
-//evaluate SpecUtil
 @ContextConfiguration(classes = [ShellControllerFunctionalSpecConfig.class, ShellController.class])
 class ShellControllerFunctionalSpec extends Specification {
 
@@ -38,26 +37,6 @@ class ShellControllerFunctionalSpec extends Specification {
         registrar.register(registry)
     }
 
-    def "validate add command"() {
-        given:
-            def methodTarget = SpecUtils.lookupCommand(registry, "add")
-
-        expect:
-            methodTarget != null
-            methodTarget.getGroup() == "Name Score Commands"
-            methodTarget.getHelp() == "Add two integers"
-            methodTarget.getAvailability().isAvailable()
-            methodTarget.getMethod().is(findMethod(COMMAND_CLASS_UNDER_TEST, "add", int.class, int.class))
-    }
-
-    def "test add command"() {
-        given:
-            def methodTarget = SpecUtils.lookupCommand(registry, "add")
-
-        expect:
-            SpecUtils.invoke(methodTarget, 1, 2) == 3
-    }
-
     def "validate score-file command"() {
         given:
             def methodTarget = SpecUtils.lookupCommand(registry, "score-file")
@@ -75,8 +54,9 @@ class ShellControllerFunctionalSpec extends Specification {
             def methodTarget = SpecUtils.lookupCommand(registry, "score-file")
 
         when:
-            def resource = this.resourceLoader.getResource("SmallFile.csv")
+            def resource = this.resourceLoader.getResource("file:src/main/resources/SmallFile.csv")
             def file = resource.getFile().getAbsolutePath()
+            println "File (functional test): " + file
 
         then:
             SpecUtils.invoke(methodTarget, file, "FIRST", ",") == 2927
