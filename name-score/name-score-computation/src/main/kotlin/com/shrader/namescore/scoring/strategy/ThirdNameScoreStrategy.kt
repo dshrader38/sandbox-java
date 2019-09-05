@@ -20,7 +20,7 @@ class ThirdNameScoreStrategy : NameScoreStrategy {
         val sortedNames = names.sortedWith(String.CASE_INSENSITIVE_ORDER)
 
         return IntStream.range(0, sortedNames.size).parallel()
-                .map { i -> scoreName(sortedNames[i], i + 1) }
+                .map { scoreName(sortedNames[it], it + 1) }
                 .sum()
     }
 

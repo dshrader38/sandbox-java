@@ -12,12 +12,8 @@ import spock.lang.Specification
 
 import static org.springframework.util.ReflectionUtils.findMethod
 
-/**
- * Illustrative functional tests for the Spring Shell NameScore application. These
- * functional tests use Spring Shell commands auto-wired by the Spring Test Runner outside
- * of the shell, to test functionality of the commands.
- */
-@ContextConfiguration(classes = [ShellControllerFunctionalSpecConfig.class, ShellController.class])
+
+@ContextConfiguration(classes = [ShellControllerConfig.class, ShellController.class])
 class ShellControllerFunctionalSpec extends Specification {
 
     @Autowired
@@ -38,10 +34,10 @@ class ShellControllerFunctionalSpec extends Specification {
     }
 
     def "validate score-file command"() {
-        given:
+        when:
             def methodTarget = SpecUtils.lookupCommand(registry, "score-file")
 
-        expect:
+        then:
             methodTarget != null
             methodTarget.getGroup() == "Name Score Commands"
             methodTarget.getHelp() == "Score a flat file containing a single line csv of names"
@@ -50,13 +46,14 @@ class ShellControllerFunctionalSpec extends Specification {
     }
 
     def "test score-file command"() {
-        given:
+        when:
             def methodTarget = SpecUtils.lookupCommand(registry, "score-file")
 
-        when:
-            def resource = this.resourceLoader.getResource("file:src/main/resources/SmallFile.csv")
-            def file = resource.getFile().getAbsolutePath()
-            println "File (functional test): " + file
+        and:
+            def file = this.resourceLoader
+                    .getResource("file:src/main/resources/SmallFile.csv")
+                    .getFile()
+                    .getAbsolutePath()
 
         then:
             SpecUtils.invoke(methodTarget, file, "FIRST", ",") == 2927

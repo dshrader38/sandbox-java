@@ -8,11 +8,9 @@ import com.shrader.namescore.shell.parser.StreamParser
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 
-/**
- * Spring configuration with beans for setting up tests.
- */
+
 @TestConfiguration
-class ShellControllerFunctionalSpecConfig {
+class ShellControllerConfig {
 
     @Bean
     NameLoader getNameLoader() {

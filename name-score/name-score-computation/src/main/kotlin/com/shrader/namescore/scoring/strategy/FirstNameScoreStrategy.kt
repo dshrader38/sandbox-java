@@ -16,7 +16,8 @@ class FirstNameScoreStrategy : NameScoreStrategy {
             return 0
         }
 
-        val sortedNames = names.sortedWith(String.CASE_INSENSITIVE_ORDER)
+        var sortedNames = names.toMutableList()
+        sortedNames.sort()
 
         var result = 0
         for (i in sortedNames.indices) {
