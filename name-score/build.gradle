@@ -1,3 +1,17 @@
+plugins {
+    // kotlin plug-in must be in top-level build script in a multi-build project
+    id "org.jetbrains.kotlin.jvm" version "1.3.50" apply false
+    id "org.jetbrains.kotlin.plugin.spring" version "1.3.50" apply false
+    id "org.springframework.boot" version "2.1.6.RELEASE" apply false
+    id "io.spring.dependency-management" version "1.0.8.RELEASE" apply false
+}
+
+allprojects {
+    task printProjName {
+        println ">> " + project.name
+    }
+}
+
 subprojects
 {
     ext {
@@ -26,7 +40,7 @@ subprojects
 
     apply plugin: "groovy"
     apply plugin: "idea"
-    apply plugin: "java"
+    apply plugin: "kotlin"
 
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"

@@ -21,10 +21,10 @@ class FileLoader : NameLoader<File> {
         }
 
     @Throws(IOException::class)
-    override fun load(dataFile: File): CharBuffer {
+    override fun load(dataSource: File): CharBuffer {
         var result: CharBuffer = CharBuffer.allocate(1024)
 
-        FileInputStream(dataFile).use { fineInputStream ->
+        FileInputStream(dataSource).use { fineInputStream ->
             fineInputStream.channel.use { fileChannel ->
                 val fileByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size())
                 result = Charset.forName(this.fileEncoding!!).decode(fileByteBuffer).asReadOnlyBuffer()

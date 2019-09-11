@@ -1,0 +1,30 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+}
+
+version = "1.0.0"
+
+dependencies {
+    implementation "com.google.guava:guava:28.0-jre"
+    implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+
+    // test frameworks
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    testImplementation "org.spockframework:spock-core:${spockVersion}"
+}
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
+        jvmTarget = "12"
+        suppressWarnings = false
+    }
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": project.name, "Implementation-Version": project.version)
+    }
+}
