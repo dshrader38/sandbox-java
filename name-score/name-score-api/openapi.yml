@@ -1,0 +1,72 @@
+openapi: "3.0.2"
+
+info:
+  title: "NameScore API"
+  description: "Name Calculation Engine"
+  version: "1.0"
+  contact:
+    name: "David Shrader"
+    email: "dshrader38@gmail.com"
+
+servers:
+- url: https://localhost:8080/shrader/name-score
+  description: "Name Score URL"
+  
+paths:
+  /add:
+    get:
+      summary: "Add two integers"
+      description: This function will add two integers and retuen an integer result"
+      operationId: Add
+      parameters:
+      - $ref: "#/components/parameters/lhs"
+      - $ref: "#/components/parameters/rhs"
+      
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200'
+        404:
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                title: Weather not found
+                type: string
+                example: Not found
+        
+components:
+  parameters:
+    lhs:
+      name: lhs
+      in: query
+      description: "Left hand side"
+      required: true
+      allowEmptyValue: false
+      schema:
+        type: integer
+        format: int64
+
+    rhs:
+      name: rhs
+      in: query
+      description: "Right hand side"
+      required: true
+      allowEmptyValue: false
+      schema:
+        type: integer
+        format: int64
+
+  schemas:
+    200:
+      title: Successful response
+      type: object
+      properties:
+        result:
+          type: integer
+          description: Internal parameter
+          format: int64
+          example: 38

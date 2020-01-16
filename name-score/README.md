@@ -1,10 +1,19 @@
 # Getting Started
-## Build & Run (Java)
+## Build/Test
+### Gradle
 ```
-gradle assemble
-java -jar name-score-0.1.1.jar
+gradle build
 ```
-## Build & Run (Docker)
+## Run
+### Gradle
+```
+gradle :name-score-shell:bootRun
+```
+### Java
+```
+java -jar name-score-shell/build/libs/name-score-shell-0.0.1.jar
+```
+### Docker
 ```
 docker build -t shrader:latest
 docker run --rm -it -v $(pwd):/usr/src/project shrader
@@ -20,7 +29,7 @@ curl -v http://localhost:8080/name-score?strategy=primary
 ### Valid 
 #### PRIMARY -> 494
 ```
-score-file -C src/main/resources/SmallFile.csv
+r
 score-file --strategy FIRST --csv-file src/main/resources/SmallFile.csv
 ```
 #### SECONDARY -> 3194

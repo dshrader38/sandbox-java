@@ -3,6 +3,7 @@ package com.shrader.namescore.shell
 import com.shrader.namescore.SpecUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
+import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.ResourceLoader
 import org.springframework.shell.ConfigurableCommandRegistry
 import org.springframework.shell.standard.StandardMethodTargetRegistrar
@@ -51,11 +52,17 @@ class ShellControllerFunctionalSpec extends Specification {
 
         and:
             def file = this.resourceLoader
-                    .getResource("file:src/main/resources/SmallFile.csv")
+                    .getResource("file:SmallFile.csv")
                     .getFile()
                     .getAbsolutePath()
 
+            def file2 = new ClassPathResource("SmallFile.csv")
+                    .getFile()
+                    .getAbsolutePath()
+            def result = 38
+
+
         then:
-            SpecUtils.invoke(methodTarget, file, "FIRST", ",") == 2927
+            SpecUtils.invoke(methodTarget, file2, "FIRST", ",") == 2927
     }
 }

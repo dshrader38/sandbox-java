@@ -1,9 +1,9 @@
 package com.shrader.namescore
 
 import com.shrader.namescore.calculator.NameScoreAlgorithm
-import com.shrader.namescore.calculator.algorithms.FirstAlgo
-import com.shrader.namescore.calculator.algorithms.SecondAlgo
-import com.shrader.namescore.calculator.algorithms.ThirdAlgo
+import com.shrader.namescore.calculator.algorithms.FirstAlgorithm
+import com.shrader.namescore.calculator.algorithms.SecondAlgorithm
+import com.shrader.namescore.calculator.algorithms.ThirdAlgorithm
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -24,9 +24,9 @@ open class NameScoreAlgorithmFactory {
     fun create(strategy: String): NameScoreAlgorithm {
 
         return when (NameScoreStrategyEnum[strategy]) {
-            NameScoreStrategyEnum.FIRST -> FirstAlgo()
-            NameScoreStrategyEnum.SECOND -> SecondAlgo()
-            NameScoreStrategyEnum.THIRD -> ThirdAlgo()
+            NameScoreStrategyEnum.FIRST -> FirstAlgorithm()
+            NameScoreStrategyEnum.SECOND -> SecondAlgorithm()
+            NameScoreStrategyEnum.THIRD -> ThirdAlgorithm()
         }
     }
 
