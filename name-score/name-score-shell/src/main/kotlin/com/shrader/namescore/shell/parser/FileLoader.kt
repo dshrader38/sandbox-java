@@ -8,6 +8,7 @@ import java.nio.CharBuffer
 import java.nio.channels.FileChannel
 import java.nio.charset.Charset
 import java.util.regex.Pattern
+import kotlin.streams.toList
 
 
 @Component
@@ -22,16 +23,26 @@ class FileLoader : NameLoader<File> {
         }
 
     @Throws(IOException::class)
-    override fun load(dataSource: File, delimiter: String): List<String> {
-        var buffer: CharBuffer = CharBuffer.allocate(4096)
+    override fun load(dataSource: File, delimiter: String): MutableList<String> {
+        var chars: CharBuffer = CharBuffer.allocate(4096)
 
         FileInputStream(dataSource).use { fineInputStream ->
             fineInputStream.channel.use { fileChannel ->
                 val fileByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size())
-                buffer = Charset.forName(this.fileEncoding!!).decode(fileByteBuffer).asReadOnlyBuffer()
+                chars = Charset.forName(this.fileEncoding!!).decode(fileByteBuffer).asReadOnlyBuffer()
             }
         }
 
-        return Pattern.compile(delimiter).split(buffer).toList()
+        val result = Pattern
+                .compile(delimiter)
+                .splitAsStream(chars)
+                .peek { println("Original value: $it") }
+                .map { it.replace("\"", "") }
+                .peek { println("Original value: $it") }
+                .map { it.trim() }
+                .peek { println("Mapped value: $it") }
+                .toList()
+
+        return result.toMutableList()
     }
 }

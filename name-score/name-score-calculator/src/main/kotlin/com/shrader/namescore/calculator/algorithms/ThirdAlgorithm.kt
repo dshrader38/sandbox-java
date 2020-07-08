@@ -9,31 +9,27 @@ import java.util.stream.LongStream
 internal class ThirdAlgorithm : NameScoreAlgorithm {
 
     companion object {
-        private const val BASE = 'A'.toInt()
+        private const val CHARACTER_OFFSET = 64
     }
 
-    override fun score(names: List<String>): Long {
-        var result = 0L
+    override fun score(names: MutableList<String>): Long {
+        var result: Long = 0
 
-        if (names.isNotEmpty()) {
-            val sortedNames = names.toMutableList()
-            sortedNames.sort()
+        if (names.isEmpty())
+            return result
 
-            result = LongStream.range(0L, sortedNames.size.toLong()).parallel()
-                    .map { scoreName(sortedNames[it.toInt()], it + 1) }
-                    .sum()
-        }
+        // use a natural sort
+        names.sort()
+
+        result = LongStream.range(0, names.size.toLong())
+                .map { scoreName(names[it.toInt()], it + 1) }
+                .sum()
 
         return result
     }
 
     private fun scoreName(name: String, multiplier: Long): Long {
-        var result: Long = 0
-
-        for (character in name) {
-            val value = character.toInt()
-            result += value - BASE + 1
-        }
+        val result = name.chars().map{ if (it in 65..90) it - CHARACTER_OFFSET else 0 }.sum()
 
         return result * multiplier
     }

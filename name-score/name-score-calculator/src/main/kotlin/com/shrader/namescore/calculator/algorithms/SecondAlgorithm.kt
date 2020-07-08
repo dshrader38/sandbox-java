@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 internal class SecondAlgorithm : NameScoreAlgorithm {
 
     companion object {
-        internal const val characterOffset = 64 // uppercase character codes start at 65, so remove 64
+        private const val CHARACTER_OFFSET = 64
     }
 
     /**
@@ -19,33 +19,48 @@ internal class SecondAlgorithm : NameScoreAlgorithm {
      * @param names - list of name strings to parse
      * @return int - total score of all names in the list
      */
-    override fun score(names: List<String>): Long {
-        var result = 0L
+    override fun score(names: MutableList<String>): Long {
+        var result: Long = 0
 
-        if (names.isNotEmpty()) {
-            val sortedNames = names.toMutableList()
-            sortedNames.sort()
+        if (names.isEmpty())
+            return result
 
-            val stream = sortedNames.map { it.toUpperCase() }.stream()
-            /**
-             * Alternatively we could start stream by IntStream.range
-             * and construct a map containing name,index tuples
-             * this would allow our logic to be a little more flexible
-             * and flat
-             */
-            result = Streams.mapWithIndex<String, Long>(stream) { name, index ->
-                val tmp = name
-                        .chars()
-                        .reduce(0) { score, character ->
-                            score + character - characterOffset
-                        }
+        // use a natural sort
+        names.sort()
 
-                (tmp * (index + 1))
-            }.reduce(0L) { sum, nameScore ->
-                sum!! + nameScore!!
-            }
+        val stream = names.map { it.toUpperCase() }.stream()
+
+        /**
+         * Alternatively we could start stream by IntStream.range
+         * and construct a map containing name, index tuples
+         * this would allow our logic to be a little more flexible
+         * and flat
+         */
+        result = Streams.mapWithIndex<String, Long>(stream) { name, index ->
+            val value = name
+                    .chars()
+                    .reduce(0) { score, character ->
+                        score + character - CHARACTER_OFFSET
+                    }
+
+            (value * (index + 1))
+        }.reduce(0L) { sum, nameScore ->
+            sum!! + nameScore!!
         }
 
         return result
     }
+
+    /*
+    private fun scoreName(name: String, multiplier: Int): Int {
+        var result = 0
+
+        for (character in name) {
+            val value = character.toInt() % characterOffset + 1
+            result += value
+        }
+
+        return result * multiplier
+    }
+    */
 }

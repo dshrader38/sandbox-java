@@ -1,10 +1,10 @@
-package com.shrader.namescore.computation.algorithms
+package com.shrader.namescore.calculator.algorithms
 
 import spock.lang.Shared
 import spock.lang.Specification
 
 
-class DefaultParserSpec extends Specification {
+class BaseAlgorithmSpec extends Specification {
 
     @Shared
     def emptyNameList = new ArrayList<String>()

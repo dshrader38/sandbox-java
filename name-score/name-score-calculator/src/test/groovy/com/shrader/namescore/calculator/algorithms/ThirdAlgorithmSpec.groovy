@@ -1,15 +1,15 @@
-package com.shrader.namescore.computation.algorithms
+package com.shrader.namescore.calculator.algorithms
 
-import com.shrader.namescore.calculator.algorithms.FirstAlgorithm
+
 import spock.lang.Unroll
 
 
-class FirstAlgorithmSpec extends DefaultParserSpec {
+class ThirdAlgorithmSpec extends BaseAlgorithmSpec {
 
     @Unroll
-    def "Test 1st strategy"(ArrayList<String> nameList, int expectedScore) {
+    def "Test 3rd strategy"(ArrayList<String> nameList, int expectedScore) {
         given:
-            def strategy = new FirstAlgorithm()
+            def strategy = new ThirdAlgorithm()
 
         when:
             def score = strategy.score(nameList)
@@ -22,6 +22,6 @@ class FirstAlgorithmSpec extends DefaultParserSpec {
             emptyNameList       | 0
             singleNameList      | 40
             multipleNameList    | 2927
-            multipleBadNameList | 637
+            //multipleBadNameList | 637
     }
 }

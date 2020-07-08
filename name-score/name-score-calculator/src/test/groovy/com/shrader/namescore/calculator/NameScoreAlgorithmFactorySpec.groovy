@@ -1,7 +1,6 @@
-package com.shrader.namescore.computation
+package com.shrader.namescore.calculator
 
 import com.shrader.namescore.NameScoreAlgorithmFactory
-import com.shrader.namescore.calculator.NameScoreAlgorithm
 import com.shrader.namescore.calculator.algorithms.FirstAlgorithm
 import com.shrader.namescore.calculator.algorithms.SecondAlgorithm
 import com.shrader.namescore.calculator.algorithms.ThirdAlgorithm

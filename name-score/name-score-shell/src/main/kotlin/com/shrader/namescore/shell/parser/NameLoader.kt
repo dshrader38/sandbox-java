@@ -2,7 +2,6 @@ package com.shrader.namescore.shell.parser
 
 import java.io.File
 import java.io.IOException
-import java.nio.CharBuffer
 
 
 interface NameLoader<T> {
@@ -12,5 +11,5 @@ interface NameLoader<T> {
      * @throws IOException - since we are reading from a datasource there is a chance the user could have given us incorrect data/parameters
      */
     @Throws(IOException::class)
-    fun load(dataSource: File, delimiter: String): List<String>
+    fun load(dataSource: File, delimiter: String): MutableList<String>
 }

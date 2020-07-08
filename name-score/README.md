@@ -23,13 +23,10 @@ docker run --rm -it --mount type=bind,src="$(pwd)",dst=/usr/src/project shrader
 
 docker exec -it <name> bash
 
-curl -v http://localhost:8080/name-score?strategy=primary
-
 ## Commands
 ### Valid 
 #### PRIMARY -> 494
-```
-r
+````
 score-file --strategy FIRST --csv-file src/main/resources/SmallFile.csv
 ```
 #### SECONDARY -> 3194
@@ -43,5 +40,9 @@ score-file --strategy THIRD --csv-file src/main/resources/SmallFile.csv
 ### Error
 #### Bad score strategy
 ```
-scorefile --strategy TENTH --csv-file src/main/resources/SmallFile.csv
+score-file --strategy TENTH --csv-file src/main/resources/SmallFile.csv
 ```
+
+
+curl -v http://localhost:8080/name-score?strategy=primary
+curl -v http://localhost:8080/name-score/add?lhs=10&rhs=28

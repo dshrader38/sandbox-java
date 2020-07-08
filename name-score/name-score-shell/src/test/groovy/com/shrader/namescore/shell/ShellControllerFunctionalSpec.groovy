@@ -3,13 +3,13 @@ package com.shrader.namescore.shell
 import com.shrader.namescore.SpecUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
-import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.ResourceLoader
 import org.springframework.shell.ConfigurableCommandRegistry
 import org.springframework.shell.standard.StandardMethodTargetRegistrar
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Unroll
 
 import static org.springframework.util.ReflectionUtils.findMethod
 
@@ -46,23 +46,27 @@ class ShellControllerFunctionalSpec extends Specification {
             methodTarget.getMethod().is(findMethod(COMMAND_CLASS_UNDER_TEST, "scoreFile", String.class, String.class, String.class))
     }
 
-    def "test score-file command"() {
-        when:
+    @Unroll
+    def "test score-file command"(String strategy, int expectedScore) {
+        given:
             def methodTarget = SpecUtils.lookupCommand(registry, "score-file")
 
         and:
             def file = this.resourceLoader
-                    .getResource("file:SmallFile.csv")
+                    .getResource("file:src/main/resources/SmallFile.csv")
                     .getFile()
                     .getAbsolutePath()
 
-            def file2 = new ClassPathResource("SmallFile.csv")
-                    .getFile()
-                    .getAbsolutePath()
-            def result = 38
-
+        when:
+            def score = SpecUtils.invoke(methodTarget, file, strategy, ",")
 
         then:
-            SpecUtils.invoke(methodTarget, file2, "FIRST", ",") == 2927
+            score == expectedScore
+
+        where:
+            strategy | expectedScore
+            "first"  | 2927
+            "second" | 2927
+            "third"  | 2927
     }
 }

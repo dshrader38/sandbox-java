@@ -4,8 +4,8 @@ package com.shrader.namescore.calculator
 interface NameScoreAlgorithm {
 
     /**
-     * @param names - list of name strings to parse
+     * @param names - mutable list of name strings to parse
      * @return long - total score of all names in the list
      */
-    fun score(names: List<String>): Long
+    fun score(names: MutableList<String>): Long
 }

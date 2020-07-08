@@ -24,18 +24,17 @@ class Controller
     fun scoreFile(@ShellOption("-c", "--csv-file") csvFile: String,
                   @ShellOption(defaultValue = "FIRST") strategy: String,
                   @ShellOption(defaultValue = ",") delimiter: String): Long {
-        var result: Long
+        var result: Long = 0
 
         try {
             val file = File(csvFile)
             val names = this.nameLoader.load(file, delimiter)
             val nameScoreAlgorithm = this.nameScoreAlgorithmFactory.create(strategy)
+
             result = nameScoreAlgorithm.score(names)
+
         } catch (ex: Exception) {
             log.error(ex)
-
-            result = 0
-            //throw ex
         }
 
         return result
