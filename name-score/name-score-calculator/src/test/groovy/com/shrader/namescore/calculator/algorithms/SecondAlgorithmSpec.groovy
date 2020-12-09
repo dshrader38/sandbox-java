@@ -22,6 +22,6 @@ class SecondAlgorithmSpec extends BaseAlgorithmSpec {
             emptyNameList       | 0
             singleNameList      | 40
             multipleNameList    | 2927
-            //multipleBadNameList | 637
+            multipleBadNameList | 637
     }
 }

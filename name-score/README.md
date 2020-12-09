@@ -1,13 +1,29 @@
 # Getting Started
-## Build/Test
-### Gradle
+## Build & Test
+### All Modules
 ```
 gradle build
 ```
-## Run
-### Gradle
+### Calculator Library
 ```
-gradle :name-score-shell:bootRun
+gradle :name-score-calculator:build
+```
+### Command-Line Interface (CLI)
+```
+gradle :name-score-cli:build
+```
+### Rest Service (API)
+```
+gradle :name-score-api:build
+```
+## Run
+### [Default] Rest Service (API)
+```
+gradle bootRun
+```
+### Command-Line Interface (CLI)
+```
+gradle :name-score-cli:bootRun
 ```
 ### Java
 ```
@@ -19,17 +35,15 @@ docker build -t shrader:latest
 docker run --rm -it -v $(pwd):/usr/src/project shrader
 docker run --rm -it --mount type=bind,src="$(pwd)",dst=/usr/src/project shrader
 --name
-```
 
 docker exec -it <name> bash
-
-## Commands
-### Valid 
-#### PRIMARY -> 494
-````
-score-file --strategy FIRST --csv-file src/main/resources/SmallFile.csv
 ```
-#### SECONDARY -> 3194
+## Commands
+### Command-Line Interface (CLI)
+```
+score-file --strategy [options] --csv-file [file]
+```
+#### Samples
 ```
 score-file --strategy SECOND --csv-file src/main/resources/SmallFile.csv
 ```
@@ -43,6 +57,6 @@ score-file --strategy THIRD --csv-file src/main/resources/SmallFile.csv
 score-file --strategy TENTH --csv-file src/main/resources/SmallFile.csv
 ```
 
-
-curl -v http://localhost:8080/name-score?strategy=primary
-curl -v http://localhost:8080/name-score/add?lhs=10&rhs=28
+##
+curl -v 'http://localhost:8080/shrader/name-score?strategy=primary'
+curl -v 'http://localhost:8080/shrader/name-score/add?lhs=10&rhs=28'

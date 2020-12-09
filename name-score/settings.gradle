@@ -2,4 +2,4 @@ rootProject.name = "name-score"
 
 include ":name-score-api"
 include ":name-score-calculator"
-include ":name-score-shell"
+include ":name-score-cli"
